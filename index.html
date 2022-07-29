@@ -65,9 +65,56 @@
             <div class="containerThree">
                 <div>
                     <p>Already have an account? <a href="" class="greenLink">Log in</a></p>
+                    <div class="check"></div>
+                    <div class="checkLen"></div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        let password = document.querySelector("#password");
+        let passwordConfirm = document.querySelector("#passwordConfirm");
+        let check = document.querySelector(".check");
+        let checkLen = document.querySelector(".checkLen");
+
+        password.addEventListener("blur", passwordChecker);
+        password.addEventListener("focus", passwordChecker);
+        password.addEventListener("keyup", passwordChecker);
+        passwordConfirm.addEventListener("keyup", passwordChecker);
+        passwordConfirm.addEventListener("blur", passwordChecker);
+        passwordConfirm.addEventListener("focus", passwordChecker);
+
+        function passwordChecker() {
+            if((password.value === "") && (passwordConfirm.value === "")) {
+                check.textContent = "";
+                checkLen.textContent = "";
+                return;
+            } else {
+                if (password.value.length <= 7) {
+                    checkLen.style.fontSize = "1rem";
+                    checkLen.style.color = "red";
+                    checkLen.textContent = "*Password needs to be at least 8 characters long";
+                } else {
+                    checkLen.textContent = "";
+                };
+                if (password.value === passwordConfirm.value) {
+                    return passRight();
+                } else {
+                    return passWrong();
+                };
+
+                function passRight(){
+                    check.style.fontSize = "1rem";
+                    check.style.color = "green";
+                    check.textContent = "*Passwords match ";
+                };
+                function passWrong(){
+                    check.style.fontSize = "1rem";
+                    check.style.color = "red";
+                    check.textContent = "*Passwords do not match ";
+                };
+            };
+        };
+    </script>
 </body>
 </html>
